@@ -1,6 +1,9 @@
 # Patch
 
-TODO: Write a gem description
+**Expectation**: Use refinements, with a little less boilerplate
+
+**Reality**: Break your code, because it can't be done in pure Ruby
+
 
 ## Installation
 
@@ -18,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+It doesn't work
 
 ## Contributing
 
