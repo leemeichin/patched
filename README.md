@@ -1,32 +1,35 @@
 # Patch
 
-**Expectation**: Use refinements, with a little less boilerplate
+The idea was to see if refinements could be abstracted in such a way that you didn't need to bother with the boilerplate of setting it all up. For example, this is a bit of a pain for one-off patches:
 
-**Reality**: Break your code, because it can't be done in pure Ruby
+```ruby
+module LolRefinement
+  refine Array do
+    def to_lol
+      self.map { "lol" }
+    end
+  end
+end
 
+class Lol
+  using LolRefinement
+end
+```
 
-## Installation
+This, on the other hand, is quite simple, if your use case is very small and specific:
 
-Add this line to your application's Gemfile:
+```ruby
+class Lol
+  patch Array do
+    def to_lol
+      self.map { "lol" }
+    end
+  end
+end
+```
 
-    gem 'patch'
+--------------------
 
-And then execute:
+Sadly, it doesn't work, because of the way refinements were set up. :( The code in this repo is just an attempt at trying it in Ruby, and an even worse attempt at hacking around it in C.
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install patch
-
-## Usage
-
-It doesn't work
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+There's probably a good reason for it...

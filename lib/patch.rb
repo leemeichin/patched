@@ -3,21 +3,32 @@ require "patch/version"
 
 module Patch
 
+
+
   def self.included(receiver)
-    receiver.send :extend, ClassMethods
+    receiver.send :include, ClassMethods
+  end
+
+  def self.refinements
+    @refinements ||= {}
+  end
+
+  def self.new_refinement(receiver, class_to_refine, &block)
+    refinement = Module.new.module_eval <<-RB, __FILE__, __LINE__
+      refine #{class_to_refine} do
+        #{block.to_source(strip_enclosure: true, ignore_nested: true)}
+      end
+    RB
+
+    module_name = "#{receiver}::#{class_to_refine}"
+    self.refinements[module_name] = refinement
   end
 
   module ClassMethods
     def patch(klass, &block)
-      __send__ :using, Module.new { refine klass, &block }
-    rescue ArgumentError
-      class_eval <<-RB, __FILE__, __LINE__
-        using Module.new do
-          refine #{klass} do
-            #{block.to_source(strip_enclosure: true, ignore_nested: true)}
-          end
-        end
-      RB
+      class_exec Patch.new_refinement(self, klass, &block) do |mod|
+        using mod
+      end
     end
   end
 
