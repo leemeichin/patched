@@ -44,10 +44,6 @@ class LolMaths
       # ...
       end
     end
-
-    def +(other)
-      self.to_word + other.to_word
-    end
   }
 
   def add(*numbers)
