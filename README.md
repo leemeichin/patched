@@ -56,3 +56,11 @@ class LolMaths
 
 end
 ```
+
+## Tests
+
+Forthcoming.
+
+## Contributing
+
+Any ideas or attempts to make this less of a horrible hack would be very much appreciated.
