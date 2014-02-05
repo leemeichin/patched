@@ -4,7 +4,7 @@ require "patched/version"
 module Patched
 
   def self.included(receiver)
-    receiver.send :include, ClassMethods
+    receiver.extend ClassMethods
   end
 
   def self.refinements
