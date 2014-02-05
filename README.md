@@ -33,6 +33,8 @@ The syntax is, unfortunately, quite important.
 ```ruby
 class LolMaths
 
+  include Patched
+
   using patched(Fixnum) {
     def to_word
       case self
@@ -49,7 +51,7 @@ class LolMaths
   }
 
   def add(*numbers)
-    numbers.reduce("", &:+)
+    numbers.reduce("") {|sum, num| sum + num.to_word }
   end
 
 end
