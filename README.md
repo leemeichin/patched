@@ -49,7 +49,7 @@ class LolMaths
   }
 
   def add(*numbers)
-    numbers.reduce("", &:to_word)
+    numbers.reduce("", &:+)
   end
 
 end
