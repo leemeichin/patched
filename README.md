@@ -1,35 +1,56 @@
-# Patch
+# Patched
 
-The idea was to see if refinements could be abstracted in such a way that you didn't need to bother with the boilerplate of setting it all up. For example, this is a bit of a pain for one-off patches:
+Create one-off refinements for classes, without (most) of the boilerplate.
 
-```ruby
-module LolRefinement
-  refine Array do
-    def to_lol
-      self.map { "lol" }
-    end
-  end
-end
+## Installing
 
-class Lol
-  using LolRefinement
-end
+Put this in your Gemfile:
+
+```shell
+gem 'patched'
 ```
 
-This, on the other hand, is quite simple, if your use case is very small and specific:
+Or this in your terminal:
 
-```ruby
-class Lol
-  patch Array do
-    def to_lol
-      self.map { "lol" }
-    end
-  end
-end
+```shell
+gem install patched
 ```
 
---------------------
+## Usage
 
-Sadly, it doesn't work, because of the way refinements were set up. :( The code in this repo is just an attempt at trying it in Ruby, and an even worse attempt at hacking around it in C.
+Basically, this:
 
-There's probably a good reason for it...
+```ruby
+using patched(ClassName) {
+  # add methods to ClassName here
+}
+```
+
+The syntax is, unfortunately, quite important.
+
+### Example
+
+```ruby
+class LolMaths
+
+  using patched(Fixnum) {
+    def to_word
+      case self
+      when 0 then "zero"
+      when 1 then "one"
+      when 2 then "two"
+      # ...
+      end
+    end
+
+    def +(other)
+      self.to_word + other.to_word
+    end
+  }
+
+  def add(*numbers)
+    numbers.reduce("", &:to_word)
+  end
+
+end
+```
