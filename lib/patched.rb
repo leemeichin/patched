@@ -1,7 +1,7 @@
 require "sourcify"
-require "patch/version"
+require "patched/version"
 
-module Patch
+module Patched
 
   def self.included(receiver)
     receiver.send :include, ClassMethods

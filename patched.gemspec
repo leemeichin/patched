@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'patch/version'
+require 'patched/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "patch"
-  spec.version       = Patch::VERSION
+  spec.name          = "patched"
+  spec.version       = Patched::VERSION
   spec.authors       = ["Lee Machin"]
   spec.email         = ["lee@new-bamboo.co.uk"]
   spec.description   = %q{More refinements, less faff}
   spec.summary       = %q{Simple way to include one-off refinements in your code}
-  spec.homepage      = "https://github.com/leemachin/patch"
+  spec.homepage      = "https://github.com/leemachin/patched"
   spec.license       = "MIT"
 
   spec.required_ruby_version = ">= 2.0.0"
