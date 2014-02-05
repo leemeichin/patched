@@ -3,8 +3,6 @@ require "patch/version"
 
 module Patch
 
-
-
   def self.included(receiver)
     receiver.send :include, ClassMethods
   end
@@ -14,7 +12,8 @@ module Patch
   end
 
   def self.new_refinement(receiver, class_to_refine, &block)
-    refinement = Module.new.module_eval <<-RB, __FILE__, __LINE__
+    refinement = Module.new
+    refinement.module_eval <<-RB, __FILE__, __LINE__
       refine #{class_to_refine} do
         #{block.to_source(strip_enclosure: true, ignore_nested: true)}
       end
@@ -25,10 +24,8 @@ module Patch
   end
 
   module ClassMethods
-    def patch(klass, &block)
-      class_exec Patch.new_refinement(self, klass, &block) do |mod|
-        using mod
-      end
+    def patched(klass, &block)
+      Patch.new_refinement(self, klass, &block)
     end
   end
 
