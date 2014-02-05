@@ -25,7 +25,7 @@ module Patched
 
   module ClassMethods
     def patched(klass, &block)
-      Patch.new_refinement(self, klass, &block)
+      Patched.new_refinement(self, klass, &block)
     end
   end
 
